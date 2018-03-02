@@ -1,0 +1,119 @@
+from collections import Counter
+import itertools as it
+
+def a2(l):
+    if l[1]=='a':
+        assert l[4]=='c'
+    elif l[1]=='b':
+        assert l[4]=='d'
+    elif l[1]=='c':
+        assert l[4]=='a'
+    elif l[1]=='d':
+        assert l[4]=='b'
+        
+def a3(l):
+    if l[2]=='a':
+        assert l[1]==l[3]==l[5] and l[2]!=l[1]
+    elif l[2]=='b':
+        assert l[1]==l[2]==l[3] and l[5]!=l[1]
+    elif l[2]=='c':
+        assert l[2]==l[3]==l[5] and l[1]!=l[2]
+    elif l[2]=='d':
+        assert l[1]==l[2]==l[5] and l[3]!=l[1]
+    
+def a4(l):
+    if l[3]=='a':
+        assert l[0]==l[4]
+    elif l[3]=='b':
+        assert l[1]==l[6]
+    elif l[3]=='c':
+        assert l[0]==l[8]
+    elif l[3]=='d':
+        assert l[5]==l[9]
+        
+def a5(l):
+    if l[4]=='a':
+        assert l[7]==l[4]
+    elif l[4]=='b':
+        assert l[3]==l[4]
+    elif l[4]=='c':
+        assert l[8]==l[4]
+    elif l[4]=='d':
+        assert l[6]==l[4]
+        
+def a6(l):
+    if l[5]=='a':
+        assert l[1]==l[3]==l[7]
+    elif l[5]=='b':
+        assert l[0]==l[5]==l[7]
+    elif l[5]=='c':
+        assert l[2]==l[9]==l[7]
+    elif l[5]=='d':
+        assert l[4]==l[8]==l[7]
+        
+def a7(l):
+    cl = Counter(l)
+    cl.setdefault('a',0)
+    cl.setdefault('b',0)
+    cl.setdefault('c',0)
+    cl.setdefault('d',0)
+    if l[6]=='a':
+        assert cl['c']<=cl['a'] and cl['c']<=cl['b'] and cl['c']<=cl['d']
+    elif l[6]=='b':
+        assert cl['b']<=cl['a'] and cl['b']<=cl['c'] and cl['b']<=cl['d']
+    elif l[6]=='c':
+        assert cl['a']<=cl['b'] and cl['a']<=cl['c'] and cl['a']<=cl['d']
+    elif l[6]=='d':
+        assert cl['d']<=cl['a'] and cl['d']<=cl['b'] and cl['d']<=cl['c']
+        
+def a8(l):
+    if l[7]=='a':
+        assert abs(ord(l[6])-ord(l[0]))!=1 and abs(ord(l[4])-ord(l[0]))==1\
+                and abs(ord(l[1])-ord(l[0]))==1 and abs(ord(l[9])-ord(l[0]))==1
+    elif l[7]=='b':
+        assert abs(ord(l[4])-ord(l[0]))!=1 and abs(ord(l[6])-ord(l[0]))==1\
+                and abs(ord(l[1])-ord(l[0]))==1 and abs(ord(l[9])-ord(l[0]))==1
+    elif l[7]=='c':
+        assert abs(ord(l[1])-ord(l[0]))!=1 and abs(ord(l[4])-ord(l[0]))==1\
+                and abs(ord(l[6])-ord(l[0]))==1 and abs(ord(l[9])-ord(l[0]))==1
+    elif l[7]=='d':
+        assert abs(ord(l[9])-ord(l[0]))!=1 and abs(ord(l[4])-ord(l[0]))==1\
+                and abs(ord(l[1])-ord(l[0]))==1 and abs(ord(l[6])-ord(l[0]))==1
+            
+def a9(l):
+    if l[8]=='a':
+        assert ((l[0]==l[5]) is (l[5]==l[4])) is False
+    elif l[8]=='b':
+        assert ((l[0]==l[5]) is (l[9]==l[4])) is False
+    elif l[8]=='c':
+        assert ((l[0]==l[5]) is (l[1]==l[4])) is False
+    elif l[8]=='d':
+        assert ((l[0]==l[5]) is (l[8]==l[4])) is False
+        
+def a10(l):
+    cl = Counter(l)
+    max_cl = max(cl.values())
+    min_cl = 0 if len(cl)<4 else min(cl.values())
+    if l[9]=='a':
+        assert max_cl-min_cl==3
+    elif l[9]=='b':
+        assert max_cl-min_cl==2
+    elif l[9]=='c':
+        assert max_cl-min_cl==4
+    elif l[9]=='d':
+        assert max_cl-min_cl==1
+        
+for l in it.product(*[('a','b','c','d')]*10):
+    try:
+        a2(l)
+        a3(l)
+        a4(l)
+        a5(l)
+        a6(l)
+        a7(l)
+        a8(l)
+        a9(l)
+        a10(l)
+        print l
+    except AssertionError:
+        continue
