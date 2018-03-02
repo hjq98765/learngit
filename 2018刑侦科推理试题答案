@@ -114,6 +114,8 @@ for l in it.product(*[('a','b','c','d')]*10):
         a8(l)
         a9(l)
         a10(l)
-        print l
+        print ''.join(l)
     except AssertionError:
         continue
+
+# answer: bcacacdaba
